@@ -23,7 +23,7 @@ export function App() {
       setStatus('loading');
       searchParams.page = page;
       fetchQuery(searchParams).then(response => {
-        setHits(prevHits => [...prevHits, ...response.data.hits]);
+        setHits(prevState => [...prevState, ...response.data.hits]);
         setStatus('resolved');
       });
     }
