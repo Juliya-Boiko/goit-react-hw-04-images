@@ -16,37 +16,71 @@ export function App() {
   const [hits, setHits] = useState([]);
   const [totalHits, setTotalHits] = useState(null);
   const [status, setStatus] = useState('idle');
-  const [lastPage, setLastPage] = useState();
+  const [lastPage, setLastPage] = useState(null);
+
+  // useEffect(() => {
+  //   setStatus('loading');
+  //   searchParams.page = page;
+  //   fetchQuery(searchParams).then(response => {
+  //     setHits(prevState => [...prevState, ...response.data.hits]);
+  //     setStatus('resolved');
+  //   });
+  // }, [page]);
+
+  // const handlerSearchbarSubmit = value => {
+  //   if (value.trim() === '') {
+  //     toast.warn('Please, enter something!');
+  //     return;
+  //   } else {
+  //     setPage(1);
+  //     setStatus('loading');
+  //     setQ(value);
+  //     searchParams.q = value;
+  //     fetchQuery(searchParams).then(response => {
+  //       setLastPage(Math.ceil(response.data.totalHits / 12));
+  //       setHits([...response.data.hits]);
+  //       setTotalHits(response.data.totalHits);
+  //       setStatus('resolved');
+  //     });
+  //   }
+  // };
 
   useEffect(() => {
-    setStatus('loading');
-    searchParams.page = page;
-    fetchQuery(searchParams).then(response => {
-      setHits(prevState => [...prevState, ...response.data.hits]);
-      setStatus('resolved');
-    });
-  }, [page]);
+    if (q === '') {
+      return;
+    } else {
+      setStatus('loading');
+      searchParams.q = q;
+      searchParams.page = page;
+      fetchQuery(searchParams).then(response => {
+        setTotalHits(response.data.totalHits);
+        setLastPage(Math.ceil(response.data.totalHits / 12));
+        setHits(prevHits =>
+          page === 1
+            ? [...response.data.hits]
+            : [...prevHits, ...response.data.hits]
+        );
+        setStatus('resolved');
+      });
+    }
+  }, [q, page]);
 
   const handlerSearchbarSubmit = value => {
     if (value.trim() === '') {
       toast.warn('Please, enter something!');
       return;
     } else {
+      setPage(1);
       setStatus('loading');
       setQ(value);
-      setPage(1);
-      searchParams.q = value;
-      fetchQuery(searchParams).then(response => {
-        setLastPage(Math.ceil(response.data.totalHits / 12));
-        setHits([...response.data.hits]);
-        setTotalHits(response.data.totalHits);
-        setStatus('resolved');
-      });
+      setHits([]);
+      setTotalHits(null);
+      setLastPage(null);
     }
   };
 
   const handlerLoadMoreClick = () => {
-    setPage(prevState => prevState + 1);
+    setPage(prevPage => prevPage + 1);
   };
 
   return (
