@@ -18,33 +18,6 @@ export function App() {
   const [status, setStatus] = useState('idle');
   const [lastPage, setLastPage] = useState(null);
 
-  // useEffect(() => {
-  //   setStatus('loading');
-  //   searchParams.page = page;
-  //   fetchQuery(searchParams).then(response => {
-  //     setHits(prevState => [...prevState, ...response.data.hits]);
-  //     setStatus('resolved');
-  //   });
-  // }, [page]);
-
-  // const handlerSearchbarSubmit = value => {
-  //   if (value.trim() === '') {
-  //     toast.warn('Please, enter something!');
-  //     return;
-  //   } else {
-  //     setPage(1);
-  //     setStatus('loading');
-  //     setQ(value);
-  //     searchParams.q = value;
-  //     fetchQuery(searchParams).then(response => {
-  //       setLastPage(Math.ceil(response.data.totalHits / 12));
-  //       setHits([...response.data.hits]);
-  //       setTotalHits(response.data.totalHits);
-  //       setStatus('resolved');
-  //     });
-  //   }
-  // };
-
   useEffect(() => {
     if (q === '') {
       return;
