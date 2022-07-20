@@ -1,7 +1,7 @@
 import 'modern-normalize';
 import { useState, useEffect } from 'react';
 import { Searchbar } from './components/Searchbar/Searchbar';
-import { fetchQuery, searchParams } from './API/fetchQuery';
+import { fetchQuery, searchParams } from './api/fetchQuery';
 import { ImageGallery } from './components/ImageGallery/ImageGallery';
 import { Idle } from './components/Idle/Idle';
 import { LoaderSpinner } from './components/common/Loader/Loader';

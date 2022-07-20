@@ -8,8 +8,8 @@ export const Searchbar = ({ onSubmit }) => {
         <Header>
             <Formik
                 initialValues={{query: ''}}
-                onSubmit={(values) => {
-                    onSubmit(values.query);
+                onSubmit={({ query }) => {
+                    onSubmit(query);
                 }}
             >
             {props => (
