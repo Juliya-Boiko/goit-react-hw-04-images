@@ -1,7 +1,7 @@
 import 'modern-normalize';
 import { useState, useEffect } from 'react';
 import { Searchbar } from './components/Searchbar/Searchbar';
-import { fetchQuery, searchParams } from './api/fetchQuery';
+import { fetchQuery } from './api/fetchQuery';
 import { ImageGallery } from './components/ImageGallery/ImageGallery';
 import { Idle } from './components/Idle/Idle';
 import { LoaderSpinner } from './components/common/Loader/Loader';
@@ -23,9 +23,13 @@ export function App() {
       return;
     } else {
       setStatus('loading');
-      searchParams.q = q;
-      searchParams.page = page;
-      fetchQuery(searchParams).then(response => {
+      fetchQuery({
+        q: q,
+        page: page,
+        image_type: 'photo',
+        orientation: 'horizontal',
+        per_page: 12,
+      }).then(response => {
         setTotalHits(response.data.totalHits);
         setLastPage(Math.ceil(response.data.totalHits / 12));
         setHits(prevHits =>

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Modal } from '../../common/Modal/Modal';
-import { ImageGalleryCardImage } from './ImageGalleryCard.styled';
+import { CardImage } from './Card.styled';
 
-export const ImageGalleryCard = ({ item }) => {
+export const Card = ({ item }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -14,16 +14,12 @@ export const ImageGalleryCard = ({ item }) => {
   };
   return (
     <div>
-      <ImageGalleryCardImage
-        src={item.webformatURL}
-        onClick={openModal}
-        alt=""
-      />
+      <CardImage src={item.webformatURL} onClick={openModal} alt="" />
       {isModalOpen && <Modal src={item.largeImageURL} onClose={closeModal} />}
     </div>
   );
 };
 
-ImageGalleryCard.propTypes = {
+Card.propTypes = {
   item: PropTypes.object.isRequired,
 };
